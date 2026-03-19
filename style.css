@@ -176,7 +176,7 @@ button:hover {
 /* Mobile Responsive */
 @media (max-width: 600px) {
   .hero {
-    height: 180px;
+    height: 240px;
   }
 
   .hero-content h1 {
