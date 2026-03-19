@@ -38,10 +38,6 @@ header p {
   display: block;
 }
 
-.hero-border img {
-  transform: scale(1.1);
-}
-
 .hero-border::after {
   content: "";
   position: absolute;
