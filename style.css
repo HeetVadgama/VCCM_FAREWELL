@@ -520,3 +520,37 @@ footer p::after {
 .footer-right p {
   animation-delay: 1s;
 }
+
+/* Active glowing card */
+.music-card.active {
+  transform: scale(1.02);
+  box-shadow:
+    0 0 10px #ec4899,
+    0 0 20px #7c3aed,
+    0 0 40px #ec4899;
+  transition: 0.3s;
+}
+
+/* Animated glowing border */
+.music-card.active::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: 15px;
+  background: linear-gradient(
+    45deg,
+    #ec4899,
+    #7c3aed,
+    #22c55e,
+    #ec4899
+  );
+  background-size: 300% 300%;
+  animation: glowMove 3s linear infinite;
+  z-index: -1;
+}
+
+/* Glow animation */
+@keyframes glowMove {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 300% 50%; }
+}
