@@ -1,10 +1,11 @@
 function togglePlay(id, btn) {
   let audio = document.getElementById(id);
 
-  // Stop all audios
+  // Stop others WITHOUT resetting UI
   document.querySelectorAll("audio").forEach(a => {
-    a.pause();
-    a.currentTime = 0;
+    if (a !== audio) {
+      a.pause();
+    }
   });
 
   // Remove glow from all cards
@@ -18,7 +19,6 @@ function togglePlay(id, btn) {
     audio.play();
     btn.innerText = "⏸";
 
-    // 🔥 Add glow to current card
     if (card) card.classList.add("active");
   } else {
     audio.pause();
@@ -29,8 +29,10 @@ function togglePlay(id, btn) {
 
   updateProgress(audio, id);
 
-  // 🔥 Remove glow when song ends
+  // Reset ONLY when song ends
   audio.onended = () => {
+    audio.currentTime = 0;
+
     if (card) card.classList.remove("active");
     btn.innerText = "▶";
   };
@@ -43,13 +45,13 @@ function updateProgress(audio, id) {
   let current = document.getElementById("current" + num);
   let duration = document.getElementById("duration" + num);
 
-  audio.ontimeupdate = () => {
+  audio.addEventListener("timeupdate", () => {
     if (audio.duration) {
       progress.value = (audio.currentTime / audio.duration) * 100;
       current.innerText = formatTime(audio.currentTime);
       duration.innerText = formatTime(audio.duration);
     }
-  };
+  });
 }
 
 function seekSong(id, slider) {
