@@ -173,7 +173,16 @@ button:hover {
   width: 100%;
   height: auto;
   overflow: hidden;
+  padding: 0;
+  margin: 0;
+  line-height: 0;   /* 🔥 removes inline gap */
 }
+
+.hero-border {
+  margin: 0;
+  padding: 4px;   /* keep glow */
+}
+
 
 /* Image */
 .hero-img {
