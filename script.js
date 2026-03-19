@@ -1,23 +1,39 @@
 function togglePlay(id, btn) {
   let audio = document.getElementById(id);
 
-  // Stop all others
+  // Stop all audios
   document.querySelectorAll("audio").forEach(a => {
-    if (a !== audio) {
-      a.pause();
-      a.currentTime = 0;
-    }
+    a.pause();
+    a.currentTime = 0;
   });
+
+  // Remove glow from all cards
+  document.querySelectorAll(".music-card").forEach(card => {
+    card.classList.remove("active");
+  });
+
+  let card = btn.closest(".music-card");
 
   if (audio.paused) {
     audio.play();
     btn.innerText = "⏸";
+
+    // 🔥 Add glow to current card
+    if (card) card.classList.add("active");
   } else {
     audio.pause();
     btn.innerText = "▶";
+
+    if (card) card.classList.remove("active");
   }
 
   updateProgress(audio, id);
+
+  // 🔥 Remove glow when song ends
+  audio.onended = () => {
+    if (card) card.classList.remove("active");
+    btn.innerText = "▶";
+  };
 }
 
 function updateProgress(audio, id) {
